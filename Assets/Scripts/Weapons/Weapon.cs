@@ -14,11 +14,19 @@ public abstract class Weapon : MonoBehaviour
 
     public bool IsReady => this.cooldownTime >= this.maxCooldownTime;
 
+    /// =========================================================
+    /// <summary>
+    ///
+    /// </summary>
     protected void Awake()
     {
         this.cooldownTime = this.maxCooldownTime;
     }
 
+    /// =========================================================
+    /// <summary>
+    ///
+    /// </summary>
     protected void Update()
     {
         if (this.IsReady == false)
@@ -27,6 +35,10 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
+    /// =========================================================
+    /// <summary>
+    ///
+    /// </summary>
     public void Activate()
     {
         if (this.IsReady)
@@ -38,11 +50,20 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
+    /// =========================================================
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="health"></param>
     public virtual void OnHit(Health health)
     {
         health.Damage(this.damage);
     }
 
+    /// =========================================================
+    /// <summary>
+    ///
+    /// </summary>
     public void Throw()
     {
         Instantiate(this.weaponItemPrefab, this.transform.position, Quaternion.identity);
