@@ -48,13 +48,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponItemPrefab: {fileID: 3714319838022005462, guid: 0ad7da8b1b62fde4f8008b0063882e58,
     type: 3}
-  maxCooldownTime: 1
+  maxCooldownTime: 0.1
   damage: 1
+  type: 2
   maxAmmo: 50
-  bulletsPerShoot: 8
+  bulletsPerShoot: 1
   shootPoint: {fileID: 3462028030345451666}
   maxDispersionAmount: 0.25
   dispersionPoint: {fileID: 3256194956719371448}
+  ui: {fileID: 0}
   range: 90
   trailPrefab: {fileID: 1534314488399218782, guid: b139e98d64203184b837f1afffe1ba81,
     type: 3}

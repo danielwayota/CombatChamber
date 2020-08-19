@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class WeaponItem : MonoBehaviour
 {
+    [Header("Common")]
     public GameObject weaponPrefab;
 
     private bool justDropped;
+
+    [Header("Gun data")]
+    public int startingAmmo = 9999;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +39,7 @@ public class WeaponItem : MonoBehaviour
             return;
 
         var newWeapon = Instantiate(this.weaponPrefab);
-        manager.PickUpWeapon(newWeapon.GetComponent<Weapon>());
+        manager.PickUpWeapon(newWeapon.GetComponent<Weapon>(), this.startingAmmo);
 
         Destroy(this.gameObject);
     }

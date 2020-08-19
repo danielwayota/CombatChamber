@@ -64,7 +64,7 @@ public abstract class Weapon : MonoBehaviour
     /// <summary>
     ///
     /// </summary>
-    public void Throw()
+    public virtual void Throw()
     {
         Instantiate(this.weaponItemPrefab, this.transform.position, Quaternion.identity);
         Destroy(this.gameObject);

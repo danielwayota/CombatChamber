@@ -80,11 +80,13 @@ MonoBehaviour:
     type: 3}
   maxCooldownTime: 1
   damage: 1
+  type: 3
   maxAmmo: 4
   bulletsPerShoot: 1
   shootPoint: {fileID: 2237679650466671817}
   maxDispersionAmount: 0.05
   dispersionPoint: {fileID: 159343287934451939}
+  ui: {fileID: 0}
   projectilePrefab: {fileID: 3816016512907727683, guid: a3171cb5d991c0a46b19518f4f2cb937,
     type: 3}
 --- !u!1 &2237679651078928766

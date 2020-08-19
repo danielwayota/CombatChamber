@@ -5,8 +5,26 @@ using UnityEngine;
 public abstract class GunWeapon : Weapon
 {
     [Header("Gun")]
+    public GunType type;
+
     public int maxAmmo;
-    public int currentAmmo { get; protected set; }
+    private int _currentAmmo;
+    public int currentAmmo
+    {
+        get => this._currentAmmo;
+        set
+        {
+            this._currentAmmo = Mathf.Clamp(value, 0, this.maxAmmo);
+
+            if (this.ui != null)
+                this.ui.SetAmmo(this._currentAmmo, this.maxAmmo);
+        }
+    }
+
+    public bool isAmmoAtMax
+    {
+        get => this._currentAmmo == this.maxAmmo;
+    }
 
     public int bulletsPerShoot = 1;
 
@@ -16,13 +34,15 @@ public abstract class GunWeapon : Weapon
     public float maxDispersionAmount = 0;
     public Transform dispersionPoint;
 
+    [HideInInspector]
+    public AmmoUI ui;
+
     /// =========================================================
     /// <summary>
     ///
     /// </summary>
     protected virtual void Start()
     {
-        this.currentAmmo = this.maxAmmo;
     }
 
     /// =========================================================
@@ -49,6 +69,20 @@ public abstract class GunWeapon : Weapon
 
             this.ShootProjectile(this.shootPoint.position, shootDirection);
         }
+    }
+
+    /// =========================================================
+    /// <summary>
+    ///
+    /// </summary>
+    public override void Throw()
+    {
+        var go = Instantiate(this.weaponItemPrefab, this.transform.position, Quaternion.identity);
+
+        var item = go.GetComponent<WeaponItem>();
+        item.startingAmmo = this._currentAmmo;
+
+        Destroy(this.gameObject);
     }
 
     /// =========================================================
