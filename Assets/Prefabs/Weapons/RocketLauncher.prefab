@@ -79,7 +79,7 @@ MonoBehaviour:
   weaponItemPrefab: {fileID: 6930694480571074565, guid: 449f3a88c2d4e034f97e4c248d60f10e,
     type: 3}
   maxCooldownTime: 1
-  damage: 1
+  damage: 8
   type: 3
   maxAmmo: 4
   bulletsPerShoot: 1
