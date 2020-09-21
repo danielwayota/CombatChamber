@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Health : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Health : MonoBehaviour
     }
 
     protected float currentHealth;
+
+    public Action<float, Vector3> OnDamage;
+    public Action OnDeath;
 
     /// ============================================
     /// <summary>
@@ -35,8 +39,13 @@ public class Health : MonoBehaviour
     ///
     /// </summary>
     /// <param name="amount"></param>
-    public virtual void Damage(float amount)
+    public virtual void Damage(float amount, Vector3 instigatorLocation)
     {
+        if (this.OnDamage != null)
+        {
+            this.OnDamage(amount, instigatorLocation);
+        }
+
         this.currentHealth = Mathf.Clamp(this.currentHealth - amount, 0, this.maxHealth);
 
         if (this.currentHealth == 0)
@@ -51,6 +60,11 @@ public class Health : MonoBehaviour
     /// </summary>
     public virtual void Die()
     {
+        if (this.OnDeath != null)
+        {
+            this.OnDeath();
+        }
+
         Destroy(this.gameObject);
     }
 }

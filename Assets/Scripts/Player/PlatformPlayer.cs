@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlatformPlayer : MonoBehaviour
 {
     public float speed = 1f;
     public float jumpPower = 10f;
 
-    private Rigidbody2D body;
-
     private bool lookingRight;
+
+    private Movement2D movement;
 
     /// =============================================
     /// <summary>
@@ -16,7 +15,7 @@ public class PlatformPlayer : MonoBehaviour
     /// </summary>
     void Start()
     {
-        this.body = this.GetComponent<Rigidbody2D>();
+        this.movement = this.GetComponent<Movement2D>();
 
         this.lookingRight = true;
     }
@@ -31,14 +30,12 @@ public class PlatformPlayer : MonoBehaviour
 
         this.FlipSprite(h);
 
-        var movement = this.body.velocity;
-        movement.x = h * this.speed;
-        if ((movement.y == 0) && Input.GetButtonDown("Jump"))
+        if (this.movement.CanJump && Input.GetButtonDown("Jump"))
         {
-            movement.y = this.jumpPower;
+            this.movement.Jump(this.jumpPower);
         }
 
-        this.body.velocity = movement;
+        this.movement.Move(h * this.speed);
     }
 
     /// =============================================

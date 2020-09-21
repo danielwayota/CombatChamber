@@ -57,7 +57,7 @@ public abstract class Weapon : MonoBehaviour
     /// <param name="health"></param>
     public virtual void OnHit(Health health)
     {
-        health.Damage(this.damage);
+        health.Damage(this.damage, this.transform.position);
     }
 
     /// =========================================================

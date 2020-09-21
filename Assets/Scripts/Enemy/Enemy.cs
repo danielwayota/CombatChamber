@@ -18,8 +18,8 @@ public class Enemy : MonoBehaviour
 
     public LayerMask whoIsMyTarget;
 
-    private Rigidbody2D body;
-    private Vector3 movement;
+    private Movement2D movement;
+    private float horizontalMove;
     private bool lookingRight = true;
 
     private Weapon weapon;
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     void Start()
     {
-        this.body = this.GetComponent<Rigidbody2D>();
+        this.movement = this.GetComponent<Movement2D>();
         this.weapon = this.GetComponentInChildren<Weapon>();
 
         if (this.weapon is GunWeapon)
@@ -54,8 +54,7 @@ public class Enemy : MonoBehaviour
             this.AIRutine();
         }
 
-        this.movement.y = this.body.velocity.y;
-        this.body.velocity = this.movement;
+        this.movement.Move(this.horizontalMove);
     }
 
     /// =============================================
@@ -64,7 +63,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     void AIRutine()
     {
-        this.movement = Vector3.zero;
+        this.horizontalMove = 0;
 
         // Dettect target
         Collider2D posibleTarget = Physics2D.OverlapCircle(
@@ -81,8 +80,8 @@ public class Enemy : MonoBehaviour
             Vector3 direction = (targetPosition - this.transform.position).normalized;
             float horizontalDirection = Mathf.Sign(direction.x);
 
-            this.movement.x = horizontalDirection * this.speed;
-            this.FlipSprite(this.movement.x);
+            this.horizontalMove = horizontalDirection * this.speed;
+            this.FlipSprite(this.horizontalMove);
 
             // Attack
             float rangeSqr = this.attackRange * this.attackRange;
@@ -91,7 +90,7 @@ public class Enemy : MonoBehaviour
             if (distanceToTarget < rangeSqr)
             {
                 this.weapon.Activate();
-                this.movement.x = 0;
+                this.horizontalMove = 0;
             }
         }
     }
